@@ -133,10 +133,6 @@ def main():
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div class='warning-box'>
-        ⚠️ <strong>Note:</strong> This is an academic deep learning project.
-        Always use human judgment for final food safety decisions.
-    </div>
     """, unsafe_allow_html=True)
 
     # ── Sidebar ────────────────────────────────────────────────────────────────
@@ -169,36 +165,36 @@ def main():
         st.markdown("---")
         st.subheader("How it works")
         c1, c2, c3 = st.columns(3)
-        with c1:
-            st.markdown("""
-            <div class='info-card' style='text-align:center'>
-                <h2>📸</h2>
-                <h4>Upload</h4>
-                <p style='color:#6b7280;font-size:13px'>
-                Take a photo of any fruit or vegetable
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-        with c2:
-            st.markdown("""
-            <div class='info-card' style='text-align:center'>
-                <h2>🧠</h2>
-                <h4>Analyze</h4>
-                <p style='color:#6b7280;font-size:13px'>
-                AI inspects color, texture and surface patterns
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-        with c3:
-            st.markdown("""
-            <div class='info-card' style='text-align:center'>
-                <h2>✅</h2>
-                <h4>Result</h4>
-                <p style='color:#6b7280;font-size:13px'>
-                Get instant Fresh or Rotten verdict + heatmap
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
+    with c1:
+        st.markdown("""
+        <div class='info-card' style='text-align:center; background:white;'>
+        <h2>📸</h2>
+        <h4 style='color:#111827;'>Upload</h4>
+        <p style='color:#4b5563;font-size:13px'>
+        Take a photo of any fruit or vegetable
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+        <div class='info-card' style='text-align:center; background:white;'>
+        <h2>🧠</h2>
+        <h4 style='color:#111827;'>Analyze</h4>
+        <p style='color:#4b5563;font-size:13px'>
+        AI inspects color, texture and surface patterns
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c3:
+        st.markdown("""
+        <div class='info-card' style='text-align:center; background:white;'>
+        <h2>✅</h2>
+        <h4 style='color:#111827;'>Result</h4>
+        <p style='color:#4b5563;font-size:13px'>
+        Get instant Fresh or Rotten verdict + heatmap
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
         return
 
     # ── Check model exists ─────────────────────────────────────────────────────
