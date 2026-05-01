@@ -13,6 +13,7 @@ import streamlit as st
 from PIL import Image
 import plotly.graph_objects as go
 
+# Add current directory to path for local imports
 sys.path.append(os.path.dirname(__file__))
 from models.model import build_model
 from data.dataset import get_transforms
@@ -52,14 +53,7 @@ st.markdown("""
         padding: 20px;
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         margin-bottom: 16px;
-    }
-    .warning-box {
-        background: #fff3cd;
-        border-left: 4px solid #f59e0b;
-        padding: 12px 16px;
-        border-radius: 0 8px 8px 0;
-        font-size: 13px;
-        margin-bottom: 20px;
+        height: 100%;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -132,9 +126,6 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    """, unsafe_allow_html=True)
-
     # ── Sidebar ────────────────────────────────────────────────────────────────
     with st.sidebar:
         st.header("⚙️ Settings")
@@ -160,41 +151,36 @@ def main():
         type=["jpg", "jpeg", "png"],
     )
 
+    # If no image is uploaded, show instructions and STOP
     if uploaded is None:
-        # Show example cards when no image uploaded
         st.markdown("---")
         st.subheader("How it works")
         c1, c2, c3 = st.columns(3)
-    with c1:
-        st.markdown("""
-        <div class='info-card' style='text-align:center; background:white;'>
-        <h2>📸</h2>
-        <h4 style='color:#111827;'>Upload</h4>
-        <p style='color:#4b5563;font-size:13px'>
-        Take a photo of any fruit or vegetable
-        </p>
-        </div>
-        """, unsafe_allow_html=True)
-    with c2:
-        st.markdown("""
-        <div class='info-card' style='text-align:center; background:white;'>
-        <h2>🧠</h2>
-        <h4 style='color:#111827;'>Analyze</h4>
-        <p style='color:#4b5563;font-size:13px'>
-        AI inspects color, texture and surface patterns
-        </p>
-        </div>
-        """, unsafe_allow_html=True)
-    with c3:
-        st.markdown("""
-        <div class='info-card' style='text-align:center; background:white;'>
-        <h2>✅</h2>
-        <h4 style='color:#111827;'>Result</h4>
-        <p style='color:#4b5563;font-size:13px'>
-        Get instant Fresh or Rotten verdict + heatmap
-        </p>
-        </div>
-        """, unsafe_allow_html=True)
+        
+        with c1:
+            st.markdown("""
+            <div class='info-card' style='text-align:center;'>
+            <h2>📸</h2>
+            <h4 style='color:#111827;'>Upload</h4>
+            <p style='color:#4b5563;font-size:13px'>Take a photo of any fruit or vegetable</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with c2:
+            st.markdown("""
+            <div class='info-card' style='text-align:center;'>
+            <h2>🧠</h2>
+            <h4 style='color:#111827;'>Analyze</h4>
+            <p style='color:#4b5563;font-size:13px'>AI inspects color, texture and surface patterns</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with c3:
+            st.markdown("""
+            <div class='info-card' style='text-align:center;'>
+            <h2>✅</h2>
+            <h4 style='color:#111827;'>Result</h4>
+            <p style='color:#4b5563;font-size:13px'>Get instant Fresh or Rotten verdict + heatmap</p>
+            </div>
+            """, unsafe_allow_html=True)
         return
 
     # ── Check model exists ─────────────────────────────────────────────────────
@@ -231,6 +217,8 @@ def main():
                 overlay     = overlay_heatmap(image, heatmap, alpha=alpha)
             st.image(overlay, use_container_width=True)
             st.caption("🔴 Red = model focused here | 🔵 Blue = ignored")
+        else:
+            st.info("Grad-CAM is disabled in settings.")
 
     with col3:
         st.subheader("📊 Result")
@@ -260,7 +248,7 @@ def main():
         fig.update_layout(
             margin=dict(l=0, r=50, t=10, b=10),
             xaxis=dict(range=[0, 115], visible=False),
-            height=120,
+            height=150,
             plot_bgcolor="rgba(0,0,0,0)",
             paper_bgcolor="rgba(0,0,0,0)",
         )
